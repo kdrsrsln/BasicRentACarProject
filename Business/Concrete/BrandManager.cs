@@ -2,9 +2,12 @@
 using System.Collections.Generic;
 using System.Text;
 using Business.Abstract;
+using Business.ValidationRules.FluentValidation;
+using Core.CrossCuttingConcerns.Validation;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
 using Entities.Concrete;
+using FluentValidation;
 
 namespace Business.Concrete
 {
@@ -24,6 +27,10 @@ namespace Business.Concrete
 
         public IResult Add(Brand brand)
         {
+            
+
+            ValidationTool.Validate(new BrandValidator(), brand);
+
             _brandDal.Add(brand);
             return new SuccessResult();
         }
