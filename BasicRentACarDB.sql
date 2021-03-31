@@ -17,6 +17,13 @@ ModelYear int NOT NULL,
 DailyPrice decimal NOT NULL,
 Description varchar(250))
 
+CREATE TABLE CarImages (
+Id int PRIMARY KEY IDENTITY(1,1),
+CarId int NOT NULL FOREIGN KEY REFERENCES Cars(Id),
+ImagePath varchar(250) NOT NULL,
+Date date
+)
+
 CREATE TABLE Users (
 Id int PRIMARY KEY IDENTITY(1,1),
 FirstName varchar(50) NOT NULL,
