@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using Business.Abstract;
+using Business.BusinessAspects.Autofac;
 using Business.Constants;
 using Core.Utilities.Business;
 using Core.Utilities.Helpers;
@@ -46,11 +47,16 @@ namespace Business.Concrete
         //   return new SuccessResult();
 
         //}
-
+        [SecuredOperation("admin")]
         public IResult Add(CarImage carImage, IFormFile file, string webRootPath)
         {
-            BusinessRules.Run(CheckIfCountOfCarImagesExceed(carImage.CarId));
+            IResult result = BusinessRules.Run(CheckIfCountOfCarImagesExceed(carImage.CarId));
 
+
+            if (result != null)
+            {
+                return result;
+            }
             var uploadedFilesPath = FileHelper.Add(file, webRootPath);
             carImage.Date = DateTime.Now;
             carImage.ImagePath = uploadedFilesPath;
