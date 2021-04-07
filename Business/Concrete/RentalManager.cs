@@ -3,6 +3,10 @@ using System.Collections.Generic;
 using System.Text;
 using Business.Abstract;
 using Business.Constants;
+using Business.ValidationRules.FluentValidation;
+using Core.Aspects.Autofac.Transaction;
+using Core.Aspects.Autofac.Validation;
+using Core.Utilities.Business;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
 using Entities.Concrete;
@@ -22,27 +26,50 @@ namespace Business.Concrete
         {
             return new SuccessDataResult<List<Rental>>(_rentalDal.GetAll());
         }
-
+        [ValidationAspect(typeof(RentalValidator))]
         public IResult Add(Rental rental)
         {
-            var result = _rentalDal.GetAll(r => r.CarId == rental.CarId && r.ReturnDate == null);
-            if (result.Count > 0)
+            IResult result = BusinessRules.Run(CheckIfCarAvailableForRent(rental));
+            if (result != null)
             {
-                
-                return new ErrorResult(Messages.CarOnRent);
+                return result;
             }
             _rentalDal.Add(rental);
             return new SuccessResult();
         }
 
+        [ValidationAspect(typeof(RentalValidator))]
         public IResult Update(Rental rental)
         {
-            throw new NotImplementedException();
+            _rentalDal.Update(rental);
+            return new SuccessResult();
         }
 
         public IResult Delete(Rental rental)
         {
-            throw new NotImplementedException();
+            _rentalDal.Delete(rental);
+            return new SuccessResult();
+        }
+        [TransactionScopeAspect]
+        public IResult TransactionTest(Rental rental)
+        {
+            Add(rental);
+            if (rental.RentDate < DateTime.Today)
+            {
+                throw new Exception();
+            }
+
+            return new SuccessResult();
+        }
+
+        private IResult CheckIfCarAvailableForRent(Rental rental)
+        {
+            var result = _rentalDal.GetAll(r => r.CarId == rental.CarId && r.ReturnDate == null);
+            if (result.Count > 0)
+            {
+                return new ErrorResult(Messages.CarOnRent);
+            }
+            return new SuccessResult();
         }
     }
 }
