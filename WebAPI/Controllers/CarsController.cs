@@ -30,6 +30,19 @@ namespace WebAPI.Controllers
 
             return BadRequest(result);
         }
+
+        [HttpGet("cardetaildto")]
+        public IActionResult GetCarDetailDto()
+        {
+            var result = _carService.GetAllCarDetailDtos();
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+
+            return BadRequest(result);
+        }
+
         [HttpGet("getbybrandid/{brandId}")]
         public IActionResult GetByBrandId(int brandId)
         {
