@@ -28,9 +28,41 @@ This repository developed as an inspiration of Car Rental Systems following **SO
 * Restful API
 * Cross Plaftorm
   - Windows, macOS, and Linux ready
-  
+* Angular FrontEnd
+  - **Angular CLI 11.1**
+* Boostrap
+
+### Dependencies
+* .Net Core 3.1+
+* Node.js 14.15+
+
 ### WIP
 * AngularJS Front End
 * Multiple File uploads
 * Dockerizing the repo
 * Unit Testing
+
+## Getting Started
+
+#### To run the demo:
+
+**1.** Clone/Fork/Download this repository.
+
+**2.** Create the database on your SQL Server Express LocalDB by using sql file
+:page_with_curl: <a href="https://github.com/kdrsrsln/BasicRentACarProject/blob/master/BasicRentACarDB.sql">BasicRentACarDb.sql</a>
+
+**3.** Install Angular CLI if necessary. `npm install -g @angular/cli`
+
+**4.** Install project dependencies.
+<pre><code>BasicRentACarProject\FrontEnd> npm install</code></pre>
+
+**5.** Run the Angular CLI dev server to build and run the Angular app.
+<pre><code>BasicRentACarProject\FrontEnd> ng serve</code></pre>
+  - **Important:** This must be running on the default http://localhost:4200
+
+**6.** Build/Run the `BasicRentACarProject.sln` solution using your preferred method: Visual Studio,  VSCode, dotnet CLI.
+  - **Important:** This must be running on http://localhost:5000
+
+**7.** Point a browser to `http://localhost:4200` to access the Angular client.
+
+**8.** Use the *Signup* and *Login* functions to perform the authentication flow, then try and access the *Top Secret Area* to hit the protected ASP.NET Core Web API.
