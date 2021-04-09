@@ -10,6 +10,7 @@ using Core.Utilities.Business;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
 using Entities.Concrete;
+using Entities.Dtos;
 
 namespace Business.Concrete
 {
@@ -26,6 +27,13 @@ namespace Business.Concrete
         {
             return new SuccessDataResult<List<Rental>>(_rentalDal.GetAll());
         }
+
+        public IDataResult<List<RentalDetailDto>> GetRentalDetail()
+        {
+            Console.WriteLine("Rental Manager Çalıştı");
+            return new SuccessDataResult<List<RentalDetailDto>>(_rentalDal.GetAllRentalDetailDtos(),"rental success");
+        }
+
         [ValidationAspect(typeof(RentalValidator))]
         public IResult Add(Rental rental)
         {
