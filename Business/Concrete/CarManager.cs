@@ -36,6 +36,17 @@ namespace Business.Concrete
         {
             return new SuccessDataResult<List<CarDetailDto>>(_carDal.GetAllCarDetailDtos());
         }
+
+        public IDataResult<List<CarDetailDto>> GetAllCarDetailByBrand(int brandId)
+        {
+            return new SuccessDataResult<List<CarDetailDto>>(_carDal.GetAllCarDetailDtos(c => c.BrandId == brandId));
+        }
+
+        public IDataResult<List<CarDetailDto>> GetAllCarDetailByColor(int colorId)
+        {
+            return new SuccessDataResult<List<CarDetailDto>>(_carDal.GetAllCarDetailDtos(c => c.ColorId == colorId));
+        }
+
         public IResult Add(Car car)
         {
             if (car.Model.Length >2 && car.DailyPrice > 0)
