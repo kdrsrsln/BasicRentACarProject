@@ -13,6 +13,7 @@ export class CarComponent implements OnInit {
 
   Cars:CarDetailDto[]=[];
   dataLoaded = false;
+  currentCar:Car;
 
   constructor(private carService:CarService, private activatedRoute:ActivatedRoute) { }
 
@@ -47,5 +48,9 @@ export class CarComponent implements OnInit {
       this.Cars = response.data;
       this.dataLoaded = true;
     })
+  }
+
+  setCurrentCar(car:Car){
+    this.currentCar = car;
   }
 }
