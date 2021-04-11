@@ -1,4 +1,5 @@
 export interface CarDetailDto{
+    carId:number;
     brandName:string;
     model:string;
     colorName:string;

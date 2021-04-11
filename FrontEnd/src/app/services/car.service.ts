@@ -3,6 +3,8 @@ import { HttpClient } from '@angular/common/http'
 import { ListResponseModel } from '../models/listResponseModel';
 import { Observable } from 'rxjs';
 import { CarDetailDto } from '../models/carDetailDto';
+import { CarDetailComponent } from '../components/car-detail/car-detail.component';
+import { SingleResponseModel } from '../models/singleResponseModel';
 
 @Injectable({
   providedIn: 'root'
@@ -26,5 +28,10 @@ export class CarService {
   getCarsByColor(colorId:number):Observable<ListResponseModel<CarDetailDto>>{
     let newPath = this.apiUrl + "cars/getAllCarDetailsByColor?colorId="+colorId
     return this.httpClient.get<ListResponseModel<CarDetailDto>>(newPath)
+  }
+
+  getCarDetail(carId:number):Observable<SingleResponseModel<CarDetailDto>>{
+    let newPath = this.apiUrl + "cars/getcardetail?carId=" + carId;
+    return this.httpClient.get<SingleResponseModel<CarDetailDto>>(newPath);
   }
 }
