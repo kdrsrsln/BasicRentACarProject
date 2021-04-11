@@ -20,6 +20,7 @@ Description varchar(250))
 CREATE TABLE CarImages (
 Id int PRIMARY KEY IDENTITY(1,1),
 CarId int NOT NULL FOREIGN KEY REFERENCES Cars(Id),
+ImageName varchar(250) NOT NULL,
 ImagePath varchar(250) NOT NULL,
 Date date
 )

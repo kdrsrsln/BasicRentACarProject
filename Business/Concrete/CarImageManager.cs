@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Text;
 using Business.Abstract;
 using Business.BusinessAspects.Autofac;
@@ -22,10 +23,10 @@ namespace Business.Concrete
         {
             _carImageDal = carImageDal;
         }
-
-        public IDataResult<List<CarImage>> GetAll()
+        
+        public IDataResult<List<CarImage>> GetAll(int carId)
         {
-            throw new NotImplementedException();
+            return new SuccessDataResult<List<CarImage>>(_carImageDal.GetAll(ci => ci.CarId == carId));
         }
 
         public IDataResult<CarImage> Get()
@@ -33,21 +34,7 @@ namespace Business.Concrete
             throw new NotImplementedException();
         }
 
-        //public IResult Add(CarImage carImage, List<IFormFile> files, string webRootPath)
-        //{
-        //    var uploadedFilesPath = FileUploadHelper.Upload(files, webRootPath);
-        //    carImage.Date = DateTime.Now;
-
-        //    foreach (var imagePath in uploadedFilesPath.Result.Data)
-        //    {
-        //        carImage.ImagePath = imagePath;
-        //        _carImageDal.Add(carImage);
-        //    }
-
-        //   return new SuccessResult();
-
-        //}
-        [SecuredOperation("admin")]
+        // [SecuredOperation("admin")]
         public IResult Add(CarImage carImage, IFormFile file, string webRootPath)
         {
             IResult result = BusinessRules.Run(CheckIfCountOfCarImagesExceed(carImage.CarId));
@@ -60,6 +47,7 @@ namespace Business.Concrete
             var uploadedFilesPath = FileHelper.Add(file, webRootPath);
             carImage.Date = DateTime.Now;
             carImage.ImagePath = uploadedFilesPath;
+            carImage.ImageName = Path.GetFileName(carImage.ImagePath);
             _carImageDal.Add(carImage);
             
             return new SuccessResult();
@@ -70,6 +58,7 @@ namespace Business.Concrete
             var carImageToUpdate = _carImageDal.Get(ci => ci.Id == carImage.Id);
             carImageToUpdate.Date = DateTime.Now;
             carImageToUpdate.ImagePath = FileHelper.Update(carImageToUpdate.ImagePath, file, webRootPath);
+            carImageToUpdate.ImagePath = Path.GetFileName(carImageToUpdate.ImagePath);
             _carImageDal.Update(carImageToUpdate);
 
             return new SuccessResult();
