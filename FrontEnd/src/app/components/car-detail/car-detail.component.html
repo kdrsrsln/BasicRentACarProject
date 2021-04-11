@@ -1,18 +1,41 @@
 <div class="container">
     <div class="row">
-        <div class="col-md-6">
-            <img src="">
+        <div class="col-md-12">
+            <div id="carouselExampleSlidesOnly" class="carousel slide" data-bs-ride="carousel">
+                <div class="carousel-inner">
+                  <div *ngFor="let image of carImages let i = index" class="carousel-item active" [ngClass]="{'active' :i == 0}">
+                    <img  src="https://localhost:44319/uploads/{{image.imageName}}" class="d-block w-100" alt="...">
+                  </div>
+                  <div class="carousel-item">
+                    <img src="..." class="d-block w-100" alt="...">
+                  </div>
+                </div>
+              </div>
         </div>
-        <div class="col-md-6">
+    </div>
+    <div class="row">
+        <div class="col-md-5">
             <div class="row">
-                <div class="col-md-12">
-                    <h1>{{currentCar.brandName}}</h1>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-4">
-                    
-                </div>
+                <table class="table">
+                    <tbody>
+                      <tr>
+                        <th scope="row">Marka</th>
+                        <td>{{currentCar.brandName}}</td>
+                      </tr>
+                      <tr>
+                        <th scope="row">Model</th>
+                        <td>{{currentCar.model}}</td>
+                      </tr>
+                      <tr>
+                        <th scope="row">Günlük Fiyat</th>
+                        <td>{{currentCar.dailyPrice}}</td>
+                      </tr>
+                      <tr>
+                        <th scope="row">Açıklama</th>
+                        <td>{{currentCar.description}}</td>
+                      </tr>
+                    </tbody>
+                  </table>
             </div>
         </div>
     </div>
