@@ -61,7 +61,7 @@ This repository developed as an inspiration of Car Rental Systems following **SO
   - **Important:** This must be running on the default http://localhost:4200
 
 **6.** Build/Run the `BasicRentACarProject.sln` solution using your preferred method: Visual Studio,  VSCode, dotnet CLI.
-  - **Important:** This must be running on http://localhost:5000
+  - **Important:** This must be running on http://localhost:44319
 
 **7.** Point a browser to `http://localhost:4200` to access the Angular client.
 
