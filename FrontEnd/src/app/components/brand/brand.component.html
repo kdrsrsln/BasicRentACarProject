@@ -1,4 +1,4 @@
 <ul class="list-group">
     <li  [class]="getAllBrandClass()" routerLink="/cars" aria-current="true">Tüm Markalar</li>
-    <li (click)="setCurrentBrand(brand)" routerLink="/cars/cardetaildtobybrand/{{brand.id}}" *ngFor="let brand of brands" [class]="getCurrentBrandClass(brand)">{{brand.name}}</li>
+    <li (click)="setCurrentBrand(brand)" routerLink="/cars/brands/{{brand.id}}" *ngFor="let brand of brands" [class]="getCurrentBrandClass(brand)">{{brand.name}}</li>
 </ul>
