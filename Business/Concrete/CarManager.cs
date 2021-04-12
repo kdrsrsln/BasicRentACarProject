@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Business.Abstract;
+using Business.Constants;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
 using DataAccess.Concrete.EntityFramework;
@@ -50,6 +51,20 @@ namespace Business.Concrete
         public IDataResult<List<CarDetailDto>> GetAllCarDetailByColor(int colorId)
         {
             return new SuccessDataResult<List<CarDetailDto>>(_carDal.GetAllCarDetailDtos(c => c.ColorId == colorId));
+        }
+
+        public IDataResult<List<CarDetailDto>> GetAllCarDetailByBrandAndColor(int brandId, int colorId)
+        {
+            var result = _carDal.GetAllCarDetailDtos(c => c.BrandId == brandId && c.ColorId == colorId);
+            if (result.Any())
+            {
+                return new SuccessDataResult<List<CarDetailDto>>(result);
+            }
+            else
+            {
+                return new ErrorDataResult<List<CarDetailDto>>(Messages.NoResultForThisFilter);
+            }
+            
         }
 
         public IResult Add(Car car)

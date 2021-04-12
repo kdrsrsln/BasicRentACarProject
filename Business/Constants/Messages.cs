@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using Core.Entity.Concrete;
+using Entities.Dtos;
 
 namespace Business.Constants
 {
@@ -22,5 +23,6 @@ namespace Business.Constants
         public static string UserAlreadyExists = "Böyle bir kullanıcı mevcut";
         public static string AccessTokenCreated = "Access Token oluşturuldu";
         public static string SuccessfulLogin = "Başarıyla giriş yapıldı";
+        public static string NoResultForThisFilter = "Bu filtre için sonuç dönmedi";
     }
 }
